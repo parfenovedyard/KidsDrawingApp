@@ -1,5 +1,6 @@
 package com.example.kidsdrawingapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -19,13 +20,13 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private val mPaths = ArrayList<CustomPath>()
 
     init{
-        setUpDrowing()
+        setUpDrawing()
     }
 
-    private fun setUpDrowing() {
+    private fun setUpDrawing() {
         mDrawPaint = Paint()
         mDrawingPath = CustomPath(color, mBrushSize)
-        mDrawPaint!!.color = color // don't understand meaning of string
+        mDrawPaint!!.color = color               // don't understand meaning of string
         mDrawPaint!!.style = Paint.Style.STROKE
         mDrawPaint!!.strokeJoin = Paint.Join.ROUND
         mDrawPaint!!.strokeCap = Paint.Cap.ROUND
@@ -56,6 +57,7 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         val touchX = event?.x
         val touchY = event?.y
@@ -89,8 +91,6 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     }
 
     internal inner class CustomPath(var color: Int,
-                                    var brushThickness: Float): Path() {
-
-    }
+                                    var brushThickness: Float): Path()
 
 }
