@@ -19,6 +19,7 @@ import com.example.kidsdrawingapp.databinding.DialogBrushSizeBinding
 import java.util.*
 
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bindingActivity: ActivityMainBinding
@@ -59,10 +60,10 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == STORAGE_PERMISSION_CODE) {
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this,"permission granted, now you can use storage",
+                Toast.makeText(this@MainActivity,"permission granted, now you can use storage",
                     Toast.LENGTH_LONG).show()
             } else{
-                Toast.makeText(this,"oops you just denied the permission",
+                Toast.makeText(this@MainActivity,"oops you just denied the permission",
                     Toast.LENGTH_LONG).show()
             }
         }
@@ -71,19 +72,25 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (resultCode == GALLERY) {
+
+            if (requestCode == GALLERY) {
+
                 try {
+
                     if (data!!.data != null) {
                         bindingActivity.ivBackground.visibility = View.VISIBLE
                         bindingActivity.ivBackground.setImageURI(data.data)
+
                     }else{
-                        Toast.makeText(this,"error in parsing image", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity,"error in parsing image", Toast.LENGTH_LONG).show()
+
                     }
                 }catch (e: Exception){
                     e.printStackTrace()
                 }
             }
         }
+
     }
 
     private fun showBrushSizeChooseDialog() {
